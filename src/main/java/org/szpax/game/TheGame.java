@@ -39,10 +39,10 @@ public class TheGame {
         Calculations calculations = Calculations.builder()
 
                 .calculationOf(FOOD_CONSUMPTION)
-                .formula(kingdom -> kingdom.getPopulation().total() / 5)
+                .formula((kingdom, world) -> kingdom.getPopulation().total() / 5)
 
                 .calculationOf(FORAGER_FOOD_PRODUCTION)
-                .formula(kingdom -> {
+                .formula((kingdom, world) -> {
                             Integer foragers = kingdom.getPopulation().get(Occupation.FORAGER);
                             Integer berries = kingdom.getResources().get(BERRIES);
 
@@ -51,10 +51,10 @@ public class TheGame {
                 )
 
                 .calculationOf(WOODCUTTER_WOOD_PRODUCTION)
-                .formula(kingdom -> kingdom.getPopulation().get(WOODCUTTER) / 2)
+                .formula((kingdom, world) -> kingdom.getPopulation().get(WOODCUTTER) / 2)
 
                 .calculationOf(FREE_HOUSING)
-                .formula(kingdom -> kingdom.getBuildings().get(HOUSE) * 5 - kingdom.getPopulation().total())
+                .formula((kingdom, world) -> kingdom.getBuildings().get(HOUSE) * 5 - kingdom.getPopulation().total())
 
 
                 .build();
