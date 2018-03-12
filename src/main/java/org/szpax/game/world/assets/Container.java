@@ -1,6 +1,6 @@
-package org.szpax.game.world;
+package org.szpax.game.world.assets;
 
-import org.szpax.game.world.assets.Named;
+import org.szpax.game.world.exceptions.NotEnoughResourcesException;
 
 import java.util.HashMap;
 import java.util.Map;

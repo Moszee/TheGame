@@ -9,21 +9,21 @@ import org.szpax.game.world.events.requirements.EventRequirement;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.szpax.game.world.calculators.MaterialCalculationType.PRODUCTION;
+import static org.szpax.game.world.calculators.MaterialCalculationType.CONSUMPTION;
 
-public class Production implements Event {
+public class Consumption implements Event {
 
     private final Material material;
     private final Calculations calculations;
 
-    public Production(Material material, Calculations calculations) {
+    public Consumption(Material material, Calculations calculations) {
         this.material = material;
         this.calculations = calculations;
     }
 
     @Override
     public void takesPlaceIn(Kingdom kingdom) {
-        CalculationKey materialProduction = CalculationKey.process(PRODUCTION)
+        CalculationKey materialProduction = CalculationKey.process(CONSUMPTION)
                 .of(material)
                 .build();
 
@@ -51,8 +51,8 @@ public class Production implements Event {
             this.material = material;
         }
 
-        public Production build(Calculations calculations) {
-            return new Production(material, calculations);
+        public Consumption build(Calculations calculations) {
+            return new Consumption(material, calculations);
         }
     }
 }

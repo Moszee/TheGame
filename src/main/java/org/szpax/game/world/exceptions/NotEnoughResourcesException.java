@@ -1,4 +1,4 @@
-package org.szpax.game.world;
+package org.szpax.game.world.exceptions;
 
 import org.szpax.game.world.assets.Named;
 

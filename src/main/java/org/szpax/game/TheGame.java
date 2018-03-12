@@ -4,9 +4,12 @@ import org.szpax.game.commands.Command;
 import org.szpax.game.commands.ExitCommand;
 import org.szpax.game.commands.NextTurnCommand;
 import org.szpax.game.world.Kingdom;
-import org.szpax.game.world.calculators.KingdomCalculator;
-import org.szpax.game.world.events.events.Construction;
+import org.szpax.game.world.World;
+import org.szpax.game.world.assets.Occupation;
+import org.szpax.game.world.calculators.Calculations;
 import org.szpax.game.world.events.EventChain;
+import org.szpax.game.world.events.events.Construction;
+import org.szpax.game.world.events.events.Consumption;
 import org.szpax.game.world.events.events.Migration;
 import org.szpax.game.world.events.events.Production;
 
@@ -19,31 +22,65 @@ import static org.szpax.game.world.assets.Material.FOOD;
 import static org.szpax.game.world.assets.Material.WOOD;
 import static org.szpax.game.world.assets.Occupation.FORAGER;
 import static org.szpax.game.world.assets.Occupation.WOODCUTTER;
+import static org.szpax.game.world.assets.Resource.BERRIES;
+import static org.szpax.game.world.calculators.CalculationKeys.*;
 
 public class TheGame {
 
     private static int turnNumber = 0;
 
     private List<Command> commands = new ArrayList<>();
-    private final EventChain eventChain;
-    private final KingdomCalculator kingdomCalculator = new KingdomCalculator();
+    private final World world;
 
     private TheGame() {
         commands.add(new NextTurnCommand());
         commands.add(new ExitCommand());
 
-        eventChain = EventChain.builder()
-                .addEvent(Production.of(FOOD).build())
-                .addEvent(Production.of(WOOD).build())
+        Calculations calculations = Calculations.builder()
+
+                .calculationOf(FOOD_CONSUMPTION)
+                .formula(kingdom -> kingdom.getPopulation().total() / 5)
+
+                .calculationOf(FORAGER_FOOD_PRODUCTION)
+                .formula(kingdom -> {
+                            Integer foragers = kingdom.getPopulation().get(Occupation.FORAGER);
+                            Integer berries = kingdom.getResources().get(BERRIES);
+
+                            return (int) Math.floor(Math.min(foragers / 2, berries * Math.log(foragers + 1)));
+                        }
+                )
+
+                .calculationOf(WOODCUTTER_WOOD_PRODUCTION)
+                .formula(kingdom -> kingdom.getPopulation().get(WOODCUTTER) / 2)
+
+                .calculationOf(FREE_HOUSING)
+                .formula(kingdom -> kingdom.getBuildings().get(HOUSE) * 5 - kingdom.getPopulation().total())
+
+
+                .build();
+
+        EventChain.Builder eventChain = EventChain.builder()
+                .addEvent(Production.of(FOOD))
+                .addEvent(Consumption.of(FOOD))
+                .addEvent(Production.of(WOOD))
                 .addSaturatingEvent(Migration.of(FORAGER)
-                        .requires(kingdom -> kingdomCalculator.foodChange(kingdom) < 4)
-                        .requires(kingdom -> kingdomCalculator.freeHousing(kingdom) > 0)
-                        .requires(4, FOOD).build())
+                        .requires(kingdom -> {
+                            int foodProduced = calculations.get(FOOD_PRODUCTION).in(kingdom).sum();
+                            int foodConsumed = calculations.get(FOOD_CONSUMPTION).in(kingdom).sum();
+
+                            return foodProduced - foodConsumed < 4;
+                        })
+                        .requires(kingdom -> calculations.get(FREE_HOUSING).in(kingdom).sum() > 0)
+                        .requires(4, FOOD))
                 .addSaturatingEvent(Migration.of(WOODCUTTER)
-                        .requires(kingdom -> kingdomCalculator.freeHousing(kingdom) > 0)
-                        .requires(4, FOOD).build())
+                        .requires(kingdom -> calculations.get(FREE_HOUSING).in(kingdom).sum() > 0)
+                        .requires(4, FOOD))
                 .addSaturatingEvent(Construction.of(HOUSE)
-                        .requires(10, WOOD).build()).build();
+                        .requires(10, WOOD));
+
+        world = World.newWorld()
+                .withCalculcations(calculations)
+                .withEventChain(eventChain).create();
 
     }
 
@@ -57,11 +94,10 @@ public class TheGame {
 
         while (true) {
             System.out.println("========~~~~ TURN " + turnNumber++ + " ~~~~========");
-            kingdom.calculate();
             Command command = null;
             while (command == null || !command.isTerminating()) {
                 System.out.println(kingdom.describeState());
-                System.out.println("What next?");
+                System.out.println("What now?");
 
                 for (int i = 0; i < commands.size(); i++) {
                     System.out.println("    " + i + ") " + commands.get(i).getDescription());
@@ -71,7 +107,7 @@ public class TheGame {
                 command.doWork(kingdom);
 
                 if (command.isTerminating())
-                    eventChain.play(kingdom);
+                    world.executeEventsIn(kingdom);
             }
         }
     }

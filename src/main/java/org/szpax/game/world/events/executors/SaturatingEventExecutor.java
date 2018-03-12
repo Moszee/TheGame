@@ -1,5 +1,6 @@
 package org.szpax.game.world.events.executors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.world.Kingdom;
 import org.szpax.game.world.events.events.Event;
 

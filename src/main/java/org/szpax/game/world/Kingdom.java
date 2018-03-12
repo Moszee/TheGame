@@ -1,16 +1,12 @@
 package org.szpax.game.world;
 
-import org.szpax.game.world.assets.Building;
-import org.szpax.game.world.assets.Material;
-import org.szpax.game.world.assets.Occupation;
-import org.szpax.game.world.assets.Resource;
-import org.szpax.game.world.calculators.KingdomCalculator;
+import org.szpax.game.world.assets.*;
 
-import static org.szpax.game.world.assets.Building.*;
+import static org.szpax.game.world.assets.Building.HOUSE;
 import static org.szpax.game.world.assets.Material.FOOD;
-import static org.szpax.game.world.assets.Material.WOOD;
-import static org.szpax.game.world.assets.Occupation.*;
-import static org.szpax.game.world.assets.Resource.*;
+import static org.szpax.game.world.assets.Occupation.FORAGER;
+import static org.szpax.game.world.assets.Occupation.WOODCUTTER;
+import static org.szpax.game.world.assets.Resource.BERRIES;
 
 public class Kingdom {
     private Container<Material> storage = new Container<>("materials", Material.values());
@@ -20,8 +16,6 @@ public class Kingdom {
     private Container<Resource> resources = new Container<>("resources", Resource.values());
 
     private final String name;
-
-    private KingdomCalculator kingdomCalculator;
 
     public Kingdom(String name) {
         this.storage.add(FOOD, 10);
@@ -34,25 +28,6 @@ public class Kingdom {
         this.resources.add(BERRIES, 32);
 
         this.name = name;
-
-        this.kingdomCalculator = new KingdomCalculator();
-    }
-
-    public Integer freeHousings() {
-        return kingdomCalculator.freeHousing(this);
-    }
-
-    public void calculate() throws Exception {
-        storage.add(FOOD, foodChange());
-        storage.add(WOOD, woodChange());
-    }
-
-    public int foodChange() {
-        return kingdomCalculator.foodChange(this);
-    }
-
-    public int woodChange() {
-        return kingdomCalculator.woodChange(this);
     }
 
     public Container<Material> getStorage() {

@@ -1,8 +1,10 @@
 package org.szpax.game.world.events.events;
 
+import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.world.Kingdom;
 import org.szpax.game.world.assets.Building;
 import org.szpax.game.world.assets.Material;
+import org.szpax.game.world.calculators.Calculations;
 import org.szpax.game.world.events.requirements.EventRequirement;
 import org.szpax.game.world.events.requirements.MaterialRequirement;
 
@@ -11,6 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 public class Construction implements Event {
     private final Set<EventRequirement> requirements;
 
@@ -29,6 +32,7 @@ public class Construction implements Event {
 
     @Override
     public void takesPlaceIn(Kingdom kingdom) {
+        log.info("Construction event firing. Building {}. Required materials: {}", building, requiredMaterials);
         requiredMaterials.forEach((key, value) -> kingdom.getStorage().take(key, value));
         kingdom.getBuildings().add(building, 1);
     }
@@ -38,7 +42,7 @@ public class Construction implements Event {
         return requirements;
     }
 
-    public static class Builder {
+    public static class Builder implements EventBuilder {
         private final Map<Material, Integer> requiredMaterials;
         private final Set<EventRequirement> eventRequirements;
         private final Building building;
@@ -59,7 +63,7 @@ public class Construction implements Event {
             return this;
         }
 
-        public Construction build() {
+        public Construction build(Calculations calculations) {
             eventRequirements.add(new MaterialRequirement(requiredMaterials));
             return new Construction(building, requiredMaterials, eventRequirements);
         }

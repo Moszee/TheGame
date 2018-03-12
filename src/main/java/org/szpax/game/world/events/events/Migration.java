@@ -1,8 +1,10 @@
 package org.szpax.game.world.events.events;
 
+import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.world.Kingdom;
 import org.szpax.game.world.assets.Material;
 import org.szpax.game.world.assets.Occupation;
+import org.szpax.game.world.calculators.Calculations;
 import org.szpax.game.world.events.requirements.EventRequirement;
 import org.szpax.game.world.events.requirements.MaterialRequirement;
 
@@ -11,6 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 public class Migration implements Event {
     private final Map<Material, Integer> requiredMaterials;
     private final Occupation occupation;
@@ -29,6 +32,7 @@ public class Migration implements Event {
 
     @Override
     public void takesPlaceIn(Kingdom kingdom) {
+        log.info("Migration event firing. Migrating {}. Required materials: {}", occupation, requiredMaterials);
         requiredMaterials.forEach((key, value) -> kingdom.getStorage().take(key, value));
         kingdom.getPopulation().add(occupation, 1);
     }
@@ -37,7 +41,7 @@ public class Migration implements Event {
         return new Builder(occupation);
     }
 
-    public static class Builder {
+    public static class Builder implements EventBuilder {
         private final Map<Material, Integer> requiredMaterials;
         private final Set<EventRequirement> eventRequirements;
         private final Occupation occupation;
@@ -58,7 +62,7 @@ public class Migration implements Event {
             return this;
         }
 
-        public Migration build() {
+        public Migration build(Calculations calculations) {
             eventRequirements.add(new MaterialRequirement(requiredMaterials));
             return new Migration(requiredMaterials, occupation, eventRequirements);
         }
