@@ -18,9 +18,9 @@ public class Construction implements Event {
     private final Set<EventRequirement> requirements;
 
     private final Building building;
-    private final Map<Material, Integer> requiredMaterials;
+    private final Map<Material, Double> requiredMaterials;
 
-    public Construction(Building building, Map<Material, Integer> requiredMaterials, Set<EventRequirement> requirements) {
+    public Construction(Building building, Map<Material, Double> requiredMaterials, Set<EventRequirement> requirements) {
         this.building = building;
         this.requiredMaterials = requiredMaterials;
         this.requirements = requirements;
@@ -34,7 +34,7 @@ public class Construction implements Event {
     public void takesPlaceIn(Kingdom kingdom) {
         log.info("Construction event firing. Building {}. Required materials: {}", building, requiredMaterials);
         requiredMaterials.forEach((key, value) -> kingdom.getStorage().take(key, value));
-        kingdom.getBuildings().add(building, 1);
+        kingdom.getBuildings().add(building, 1d);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Construction implements Event {
     }
 
     public static class Builder implements EventBuilder {
-        private final Map<Material, Integer> requiredMaterials;
+        private final Map<Material, Double> requiredMaterials;
         private final Set<EventRequirement> eventRequirements;
         private final Building building;
 
@@ -53,7 +53,7 @@ public class Construction implements Event {
             this.eventRequirements = new HashSet<>();
         }
 
-        public Builder requires(Integer amount, Material material) {
+        public Builder requires(Double amount, Material material) {
             requiredMaterials.put(material, amount);
             return this;
         }
@@ -63,7 +63,7 @@ public class Construction implements Event {
             return this;
         }
 
-        public Construction build(Calculations calculations) {
+        public Construction build() {
             eventRequirements.add(new MaterialRequirement(requiredMaterials));
             return new Construction(building, requiredMaterials, eventRequirements);
         }

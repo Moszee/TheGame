@@ -93,7 +93,6 @@ public class CalculationKey {
 
         public Builder(MaterialCalculationType materialCalculationType) {
             partialKeys.put(MaterialCalculationType.class, materialCalculationType);
-
         }
 
         public Builder of(Material material){

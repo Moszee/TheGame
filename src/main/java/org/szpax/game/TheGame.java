@@ -36,7 +36,7 @@ public class TheGame {
 
     private void play() throws Exception {
         Scanner in = new Scanner(System.in);
-        Kingdom kingdom = new Kingdom("test");
+        Kingdom kingdom = new Kingdom("test", world);
 
         while (true) {
             System.out.println("========~~~~ TURN " + turnNumber++ + " ~~~~========");

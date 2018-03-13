@@ -4,6 +4,7 @@ import org.szpax.game.world.Kingdom;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 import static org.szpax.game.world.assets.Building.HOUSE;
@@ -20,11 +21,11 @@ public class Calculations {
         return (Kingdom kingdom) -> calculators.entrySet()
                 .stream()
                 .filter(it -> it.getKey().conforms(foodProduction))
-                .mapToInt(it -> it.getValue().calculateChange(kingdom));
+                .mapToDouble(it -> it.getValue().calculateChange(kingdom));
     }
 
-    public int freeHousing(Kingdom kingdom) {
-        return (kingdom.getBuildings().get(HOUSE) * 5) - kingdom.getPopulation().total();
+    public Double freeHousing(Kingdom kingdom) {
+        return (kingdom.getBuildings().get(HOUSE) * 5d) - kingdom.getPopulation().total();
     }
 
     public static Builder builder() {
@@ -60,6 +61,6 @@ public class Calculations {
 
     @FunctionalInterface
     public interface KingdomCalculation {
-        IntStream in(Kingdom kingdom);
+        DoubleStream in(Kingdom kingdom);
     }
 }

@@ -15,11 +15,11 @@ import java.util.Set;
 
 @Slf4j
 public class Migration implements Event {
-    private final Map<Material, Integer> requiredMaterials;
+    private final Map<Material, Double> requiredMaterials;
     private final Occupation occupation;
     private final Set<EventRequirement>  requirements;
 
-    Migration(Map<Material, Integer> requiredMaterials, Occupation occupation, Set<EventRequirement> requirements) {
+    Migration(Map<Material, Double> requiredMaterials, Occupation occupation, Set<EventRequirement> requirements) {
         this.requiredMaterials = requiredMaterials;
         this.occupation = occupation;
         this.requirements = new HashSet<>(requirements);
@@ -34,7 +34,7 @@ public class Migration implements Event {
     public void takesPlaceIn(Kingdom kingdom) {
         log.info("Migration event firing. Migrating {}. Required materials: {}", occupation, requiredMaterials);
         requiredMaterials.forEach((key, value) -> kingdom.getStorage().take(key, value));
-        kingdom.getPopulation().add(occupation, 1);
+        kingdom.getPopulation().add(occupation, 1d);
     }
 
     public static Builder of(Occupation occupation) {
@@ -42,7 +42,7 @@ public class Migration implements Event {
     }
 
     public static class Builder implements EventBuilder {
-        private final Map<Material, Integer> requiredMaterials;
+        private final Map<Material, Double> requiredMaterials;
         private final Set<EventRequirement> eventRequirements;
         private final Occupation occupation;
 
@@ -52,7 +52,7 @@ public class Migration implements Event {
             this.eventRequirements = new HashSet<>();
         }
 
-        public Builder requires(Integer amount, Material material) {
+        public Builder requires(Double amount, Material material) {
             requiredMaterials.put(material, amount);
             return this;
         }
@@ -62,7 +62,7 @@ public class Migration implements Event {
             return this;
         }
 
-        public Migration build(Calculations calculations) {
+        public Migration build() {
             eventRequirements.add(new MaterialRequirement(requiredMaterials));
             return new Migration(requiredMaterials, occupation, eventRequirements);
         }

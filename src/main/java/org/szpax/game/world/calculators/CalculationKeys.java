@@ -8,6 +8,7 @@ import static org.szpax.game.world.assets.Occupation.WOODCUTTER;
 import static org.szpax.game.world.calculators.model.BuildingCalculationType.FREE;
 import static org.szpax.game.world.calculators.model.MaterialCalculationType.CONSUMPTION;
 import static org.szpax.game.world.calculators.model.MaterialCalculationType.PRODUCTION;
+import static org.szpax.game.world.calculators.model.MaterialCalculationType.PRODUCTION_DELTA;
 
 public class CalculationKeys {
 
@@ -20,6 +21,11 @@ public class CalculationKeys {
             .build();
 
     public static CalculationKey FORAGER_FOOD_PRODUCTION = CalculationKey.process(PRODUCTION)
+            .of(FOOD)
+            .by(FORAGER)
+            .build();
+
+    public static CalculationKey FORAGER_FOOD_PRODUCTION_DELTA = CalculationKey.process(PRODUCTION_DELTA)
             .of(FOOD)
             .by(FORAGER)
             .build();

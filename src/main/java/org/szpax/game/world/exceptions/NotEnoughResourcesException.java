@@ -4,21 +4,21 @@ import org.szpax.game.world.assets.Named;
 
 public class NotEnoughResourcesException extends RuntimeException {
 
-    private final Integer needed;
-    private final Integer actual;
+    private final Double needed;
+    private final Double actual;
     private final Named resource;
 
-    public NotEnoughResourcesException(Integer needed, Integer actual, Named resource) {
+    public NotEnoughResourcesException(Double needed, Double actual, Named resource) {
         this.needed = needed;
         this.actual = actual;
         this.resource = resource;
     }
 
-    public Integer getNeeded() {
+    public Double getNeeded() {
         return needed;
     }
 
-    public Integer getActual() {
+    public Double getActual() {
         return actual;
     }
 

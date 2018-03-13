@@ -14,11 +14,9 @@ import static org.szpax.game.world.calculators.model.MaterialCalculationType.CON
 public class Consumption implements Event {
 
     private final Material material;
-    private final Calculations calculations;
 
-    public Consumption(Material material, Calculations calculations) {
+    public Consumption(Material material) {
         this.material = material;
-        this.calculations = calculations;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class Consumption implements Event {
                 .build();
 
         kingdom.getStorage().add(material,
-                calculations.get(
+                kingdom.world().calculations().get(
                         materialProduction)
                         .in(kingdom)
                         .sum());
@@ -51,8 +49,8 @@ public class Consumption implements Event {
             this.material = material;
         }
 
-        public Consumption build(Calculations calculations) {
-            return new Consumption(material, calculations);
+        public Consumption build() {
+            return new Consumption(material);
         }
     }
 }

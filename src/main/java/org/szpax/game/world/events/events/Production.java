@@ -3,7 +3,6 @@ package org.szpax.game.world.events.events;
 import org.szpax.game.world.Kingdom;
 import org.szpax.game.world.assets.Material;
 import org.szpax.game.world.calculators.CalculationKey;
-import org.szpax.game.world.calculators.Calculations;
 import org.szpax.game.world.events.requirements.EventRequirement;
 
 import java.util.HashSet;
@@ -14,11 +13,9 @@ import static org.szpax.game.world.calculators.model.MaterialCalculationType.PRO
 public class Production implements Event {
 
     private final Material material;
-    private final Calculations calculations;
 
-    public Production(Material material, Calculations calculations) {
+    public Production(Material material) {
         this.material = material;
-        this.calculations = calculations;
     }
 
     @Override
@@ -28,7 +25,7 @@ public class Production implements Event {
                 .build();
 
         kingdom.getStorage().add(material,
-                calculations.get(
+                kingdom.world().calculations().get(
                         materialProduction)
                         .in(kingdom)
                         .sum());
@@ -51,8 +48,8 @@ public class Production implements Event {
             this.material = material;
         }
 
-        public Production build(Calculations calculations) {
-            return new Production(material, calculations);
+        public Production build() {
+            return new Production(material);
         }
     }
 }

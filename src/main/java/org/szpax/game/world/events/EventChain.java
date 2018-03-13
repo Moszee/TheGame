@@ -46,15 +46,15 @@ public class EventChain {
             return this;
         }
 
-        public EventChain build(Calculations calculations) {
+        public EventChain build() {
             List<SaturatingEventExecutor> saturatingExecutors = saturatingEventBuilders
                     .stream()
-                    .map(it -> new SaturatingEventExecutor(it.build(calculations)))
+                    .map(it -> new SaturatingEventExecutor(it.build()))
                     .collect(toList());
 
             List<SingleEventExecutor> singleExecutors = singleEventBuilders
                     .stream()
-                    .map(it -> new SingleEventExecutor(it.build(calculations)))
+                    .map(it -> new SingleEventExecutor(it.build()))
                     .collect(toList());
 
             events.addAll(singleExecutors);

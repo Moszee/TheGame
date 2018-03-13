@@ -49,7 +49,7 @@ public class World {
                 throw new IllegalStateException();
             }
 
-            return new World(eventChain.build(calculations), calculations);
+            return new World(eventChain.build(), calculations);
         }
     }
 }
