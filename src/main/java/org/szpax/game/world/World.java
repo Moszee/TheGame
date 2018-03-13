@@ -13,6 +13,10 @@ public class World {
         this.calculations = calculations;
     }
 
+    public Calculations calculations() {
+        return calculations;
+    }
+
     public static Builder newWorld() {
         return new Builder();
     }

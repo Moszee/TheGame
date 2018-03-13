@@ -3,6 +3,8 @@ package org.szpax.game.world.calculators;
 import org.szpax.game.world.assets.Building;
 import org.szpax.game.world.assets.Material;
 import org.szpax.game.world.assets.Occupation;
+import org.szpax.game.world.calculators.model.BuildingCalculationType;
+import org.szpax.game.world.calculators.model.MaterialCalculationType;
 
 import java.util.Collections;
 import java.util.HashMap;

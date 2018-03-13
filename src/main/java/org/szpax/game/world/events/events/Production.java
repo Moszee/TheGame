@@ -9,7 +9,7 @@ import org.szpax.game.world.events.requirements.EventRequirement;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.szpax.game.world.calculators.MaterialCalculationType.PRODUCTION;
+import static org.szpax.game.world.calculators.model.MaterialCalculationType.PRODUCTION;
 
 public class Production implements Event {
 

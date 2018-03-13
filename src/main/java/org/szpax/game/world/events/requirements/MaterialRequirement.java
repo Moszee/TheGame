@@ -1,6 +1,7 @@
 package org.szpax.game.world.events.requirements;
 
 import org.szpax.game.world.Kingdom;
+import org.szpax.game.world.World;
 import org.szpax.game.world.assets.Material;
 
 import java.util.Map;
@@ -13,7 +14,7 @@ public class MaterialRequirement implements EventRequirement {
     }
 
     @Override
-    public boolean canTakePlaceIn(Kingdom kingdom) {
+    public boolean canTakePlaceIn(Kingdom kingdom, World world) {
         return requiredMaterials.entrySet().stream().allMatch(entry ->
                 kingdom.getStorage().get(entry.getKey()) >= entry.getValue()
         );

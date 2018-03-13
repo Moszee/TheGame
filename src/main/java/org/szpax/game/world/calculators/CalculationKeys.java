@@ -5,9 +5,9 @@ import static org.szpax.game.world.assets.Material.FOOD;
 import static org.szpax.game.world.assets.Material.WOOD;
 import static org.szpax.game.world.assets.Occupation.FORAGER;
 import static org.szpax.game.world.assets.Occupation.WOODCUTTER;
-import static org.szpax.game.world.calculators.BuildingCalculationType.FREE;
-import static org.szpax.game.world.calculators.MaterialCalculationType.CONSUMPTION;
-import static org.szpax.game.world.calculators.MaterialCalculationType.PRODUCTION;
+import static org.szpax.game.world.calculators.model.BuildingCalculationType.FREE;
+import static org.szpax.game.world.calculators.model.MaterialCalculationType.CONSUMPTION;
+import static org.szpax.game.world.calculators.model.MaterialCalculationType.PRODUCTION;
 
 public class CalculationKeys {
 

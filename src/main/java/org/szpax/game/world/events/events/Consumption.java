@@ -9,7 +9,7 @@ import org.szpax.game.world.events.requirements.EventRequirement;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.szpax.game.world.calculators.MaterialCalculationType.CONSUMPTION;
+import static org.szpax.game.world.calculators.model.MaterialCalculationType.CONSUMPTION;
 
 public class Consumption implements Event {
 
