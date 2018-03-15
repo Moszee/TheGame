@@ -4,15 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.commands.Command;
 import org.szpax.game.commands.ExitCommand;
 import org.szpax.game.commands.NextTurnCommand;
-import org.szpax.game.world.Kingdom;
-import org.szpax.game.world.World;
+import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.World;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.szpax.game.world.StandardCalculationSet.STANDARD_CALCULATIONS;
-import static org.szpax.game.world.StandardEventChain.EVENT_CHAIN;
+import static org.szpax.game.world.calculators.StandardCalculationSet.STANDARD_CALCULATIONS;
+import static org.szpax.game.world.events.StandardEventChain.EVENT_CHAIN;
 
 @Slf4j
 public class TheGame {

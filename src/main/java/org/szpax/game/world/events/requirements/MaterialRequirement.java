@@ -1,8 +1,8 @@
 package org.szpax.game.world.events.requirements;
 
-import org.szpax.game.world.Kingdom;
-import org.szpax.game.world.World;
-import org.szpax.game.world.assets.Material;
+import org.szpax.game.framework.api.EventRequirement;
+import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Material;
 
 import java.util.Map;
 

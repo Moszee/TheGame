@@ -1,6 +1,8 @@
 package org.szpax.game.world.events.requirements;
 
-import static org.szpax.game.world.assets.Material.FOOD;
+import org.szpax.game.framework.api.EventRequirement;
+
+import static org.szpax.game.framework.model.Material.FOOD;
 import static org.szpax.game.world.calculators.CalculationKeys.FREE_HOUSING;
 
 public class ConstructionRequirements {

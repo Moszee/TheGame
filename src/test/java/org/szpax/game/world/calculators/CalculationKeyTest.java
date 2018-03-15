@@ -1,11 +1,12 @@
 package org.szpax.game.world.calculators;
 
 import org.junit.Test;
+import org.szpax.game.framework.calculators.CalculationKey;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.szpax.game.world.assets.Material.FOOD;
-import static org.szpax.game.world.assets.Occupation.WOODCUTTER;
-import static org.szpax.game.world.calculators.model.MaterialCalculationType.PRODUCTION;
+import static org.szpax.game.framework.model.Material.FOOD;
+import static org.szpax.game.framework.model.Occupation.WOODCUTTER;
+import static org.szpax.game.framework.calculators.model.MaterialCalculationType.PRODUCTION;
 
 public class CalculationKeyTest {
 

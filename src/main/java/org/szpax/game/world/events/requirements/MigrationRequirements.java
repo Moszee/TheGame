@@ -1,6 +1,7 @@
 package org.szpax.game.world.events.requirements;
 
 import lombok.extern.slf4j.Slf4j;
+import org.szpax.game.framework.api.EventRequirement;
 
 import static org.szpax.game.world.calculators.CalculationKeys.*;
 

@@ -1,6 +1,6 @@
 package org.szpax.game.commands;
 
-import org.szpax.game.world.Kingdom;
+import org.szpax.game.framework.model.Kingdom;
 
 public interface Command {
 
