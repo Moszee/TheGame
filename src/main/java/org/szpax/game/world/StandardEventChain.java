@@ -30,19 +30,22 @@ public class StandardEventChain {
                     })
                     .requires((kingdom) -> {
                         Double potentialGain = kingdom.world().calculations().get(FORAGER_FOOD_PRODUCTION_DELTA).in(kingdom).sum();
-                        log.info("Potential new forager gain: {}", potentialGain);
+                        log.debug("Potential new forager gain: {}", potentialGain);
                         return 10 * potentialGain > 3;
                     })
                     .requires((kingdom) -> kingdom.world().calculations().get(FREE_HOUSING).in(kingdom).sum() > 0)
-                    .requires(4d, FOOD))
+                    .requires(4d, FOOD)
+            )
             .addSaturatingEvent(Migration.of(WOODCUTTER)
                     .requires((kingdom) -> kingdom.world().calculations().get(FREE_HOUSING).in(kingdom).sum() > 0)
-                    .requires(4d, FOOD))
+                    .requires(4d, FOOD)
+            )
             .addSaturatingEvent(Construction.of(HOUSE)
                     .requires((kingdom) -> {
                         Double houseOvercapacity = kingdom.getStorage().get(FOOD) / 4 * 2;
                         return kingdom.world().calculations().get(FREE_HOUSING).in(kingdom).sum() < houseOvercapacity;
                     })
-                    .requires(10d, WOOD));
+                    .requires(10d, WOOD)
+            );
 
 }

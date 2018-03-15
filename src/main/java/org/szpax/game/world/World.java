@@ -1,8 +1,10 @@
 package org.szpax.game.world;
 
+import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.world.calculators.Calculations;
 import org.szpax.game.world.events.EventChain;
 
+@Slf4j
 public class World {
 
     private final EventChain eventChain;
@@ -22,6 +24,7 @@ public class World {
     }
 
     public void executeEventsIn(Kingdom kingdom) {
+        log.debug("Executing events from event chain in Kingdom \"{}\"", kingdom.getName());
         eventChain.play(kingdom);
     }
 

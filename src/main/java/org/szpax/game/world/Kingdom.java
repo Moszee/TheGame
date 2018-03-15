@@ -26,7 +26,7 @@ public class Kingdom {
 
         this.buildings.add(HOUSE, 4d);
 
-        this.resources.add(BERRIES, 32d);
+        this.resources.add(BERRIES, 10d);
 
         this.name = name;
         this.world = world;
@@ -83,6 +83,11 @@ public class Kingdom {
         sb.append(storage.describeState()).append(System.lineSeparator());
         sb.append(population.describeState()).append(System.lineSeparator());
         sb.append(buildings.describeState()).append(System.lineSeparator());
+        sb.append(resources.describeState()).append(System.lineSeparator());
         return sb.toString();
+    }
+
+    public String getName() {
+        return name;
     }
 }

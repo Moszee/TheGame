@@ -1,5 +1,6 @@
 package org.szpax.game;
 
+import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.commands.Command;
 import org.szpax.game.commands.ExitCommand;
 import org.szpax.game.commands.NextTurnCommand;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 import static org.szpax.game.world.StandardCalculationSet.STANDARD_CALCULATIONS;
 import static org.szpax.game.world.StandardEventChain.EVENT_CHAIN;
 
+@Slf4j
 public class TheGame {
 
     private static int turnNumber = 0;
@@ -40,6 +42,7 @@ public class TheGame {
 
         while (true) {
             System.out.println("========~~~~ TURN " + turnNumber++ + " ~~~~========");
+            log.info("Turn number: {}", turnNumber);
             Command command = null;
             while (command == null || !command.isTerminating()) {
                 System.out.println(kingdom.describeState());
