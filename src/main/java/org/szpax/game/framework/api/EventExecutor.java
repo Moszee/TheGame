@@ -1,9 +1,9 @@
 package org.szpax.game.framework.api;
 
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 
 public interface EventExecutor {
-    boolean canExecuteIn(Kingdom kingdom);
+    boolean canExecuteIn(Realm realm);
 
-    void executeIn(Kingdom kingdom);
+    void executeIn(Realm realm);
 }

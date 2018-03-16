@@ -2,7 +2,7 @@ package org.szpax.game.framework.events;
 
 import org.szpax.game.framework.api.Event;
 import org.szpax.game.framework.api.EventBuilder;
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 import org.szpax.game.framework.model.Material;
 import org.szpax.game.framework.calculators.CalculationKey;
 import org.szpax.game.framework.api.EventRequirement;
@@ -21,15 +21,15 @@ public class Production implements Event {
     }
 
     @Override
-    public void takesPlaceIn(Kingdom kingdom) {
+    public void takesPlaceIn(Realm realm) {
         CalculationKey materialProduction = CalculationKey.process(PRODUCTION)
                 .of(material)
                 .build();
 
-        kingdom.getStorage().add(material,
-                kingdom.world().calculations().get(
+        realm.getStorage().add(material,
+                realm.world().calculations().get(
                         materialProduction)
-                        .in(kingdom)
+                        .in(realm)
                         .sum());
     }
 

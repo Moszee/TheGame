@@ -1,7 +1,7 @@
 package org.szpax.game.framework.events;
 
 import org.szpax.game.framework.api.EventBuilder;
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 import org.szpax.game.framework.api.EventExecutor;
 import org.szpax.game.framework.executors.SaturatingEventExecutor;
 import org.szpax.game.framework.executors.SingleEventExecutor;
@@ -20,10 +20,10 @@ public class EventChain {
         this.events = new LinkedList<>(events);
     }
 
-    public void play(Kingdom kingdom) {
+    public void play(Realm realm) {
         events.stream()
-                .filter(event -> event.canExecuteIn(kingdom))
-                .forEach(event -> event.executeIn(kingdom));
+                .filter(event -> event.canExecuteIn(realm))
+                .forEach(event -> event.executeIn(realm));
     }
 
     public static Builder builder() {

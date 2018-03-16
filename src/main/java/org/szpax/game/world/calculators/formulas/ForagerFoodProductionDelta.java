@@ -1,7 +1,7 @@
 package org.szpax.game.world.calculators.formulas;
 
 import lombok.extern.slf4j.Slf4j;
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 import org.szpax.game.framework.calculators.Calculations;
 import org.szpax.game.framework.api.Calculator;
 
@@ -12,18 +12,18 @@ import static org.szpax.game.world.calculators.CalculationKeys.FORAGER_FOOD_PROD
 public class ForagerFoodProductionDelta implements Calculator {
 
     @Override
-    public Double calculateChange(Kingdom kingdom) {
+    public Double calculateChange(Realm realm) {
         Calculations.KingdomCalculation foragerCalculation =
-                kingdom
+                realm
                         .world()
                         .calculations()
                         .get(FORAGER_FOOD_PRODUCTION);
 
-        Double current = foragerCalculation.in(kingdom).sum();
+        Double current = foragerCalculation.in(realm).sum();
 
         log.info("Current gain: {}", current);
 
-        Kingdom futureState = kingdom.copy();
+        Realm futureState = realm.copy();
         futureState.getPopulation().add(FORAGER, 1d);
         Double potentialProduction = foragerCalculation.in(futureState).sum();
 

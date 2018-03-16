@@ -3,7 +3,7 @@ package org.szpax.game.framework.events;
 import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.framework.api.Event;
 import org.szpax.game.framework.api.EventBuilder;
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 import org.szpax.game.framework.model.Material;
 import org.szpax.game.framework.model.Occupation;
 import org.szpax.game.framework.api.EventRequirement;
@@ -32,10 +32,10 @@ public class Migration implements Event {
     }
 
     @Override
-    public void takesPlaceIn(Kingdom kingdom) {
+    public void takesPlaceIn(Realm realm) {
         log.info("Migration event firing. Migrating {}. Required materials: {}", occupation, requiredMaterials);
-        requiredMaterials.forEach((key, value) -> kingdom.getStorage().take(key, value));
-        kingdom.getPopulation().add(occupation, 1d);
+        requiredMaterials.forEach((key, value) -> realm.getStorage().take(key, value));
+        realm.getPopulation().add(occupation, 1d);
     }
 
     public static Builder of(Occupation occupation) {

@@ -1,6 +1,6 @@
 package org.szpax.game.commands;
 
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 
 public class ExitCommand implements Command {
     @Override
@@ -9,7 +9,7 @@ public class ExitCommand implements Command {
     }
 
     @Override
-    public void doWork(Kingdom kingdom) {
+    public void doWork(Realm realm) {
         System.exit(0);
     }
 

@@ -3,7 +3,7 @@ package org.szpax.game.framework;
 import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.framework.calculators.Calculations;
 import org.szpax.game.framework.events.EventChain;
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 
 @Slf4j
 public class World {
@@ -24,9 +24,9 @@ public class World {
         return new Builder();
     }
 
-    public void executeEventsIn(Kingdom kingdom) {
-        log.debug("Executing events from event chain in Kingdom \"{}\"", kingdom.getName());
-        eventChain.play(kingdom);
+    public void executeEventsIn(Realm realm) {
+        log.debug("Executing events from event chain in Realm \"{}\"", realm.getName());
+        eventChain.play(realm);
     }
 
     public static class Builder {

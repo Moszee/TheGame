@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.szpax.game.commands.Command;
 import org.szpax.game.commands.ExitCommand;
 import org.szpax.game.commands.NextTurnCommand;
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 import org.szpax.game.framework.World;
 
 import java.util.ArrayList;
@@ -38,14 +38,14 @@ public class TheGame {
 
     private void play() throws Exception {
         Scanner in = new Scanner(System.in);
-        Kingdom kingdom = new Kingdom("test", world);
+        Realm realm = new Realm("test", world);
 
         while (true) {
             System.out.println("========~~~~ TURN " + turnNumber++ + " ~~~~========");
             log.info("Turn number: {}", turnNumber);
             Command command = null;
             while (command == null || !command.isTerminating()) {
-                System.out.println(kingdom.describeState());
+                System.out.println(realm.describeState());
                 System.out.println("What now?");
 
                 for (int i = 0; i < commands.size(); i++) {
@@ -53,10 +53,10 @@ public class TheGame {
                 }
 
                 command = commands.get(in.nextInt());
-                command.doWork(kingdom);
+                command.doWork(realm);
 
                 if (command.isTerminating())
-                    world.executeEventsIn(kingdom);
+                    world.executeEventsIn(realm);
             }
         }
     }

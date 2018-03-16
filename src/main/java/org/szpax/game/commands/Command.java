@@ -1,12 +1,12 @@
 package org.szpax.game.commands;
 
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 
 public interface Command {
 
     String getDescription();
 
-    void doWork(Kingdom kingdom);
+    void doWork(Realm realm);
 
     boolean isTerminating();
 }

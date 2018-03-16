@@ -1,7 +1,7 @@
 package org.szpax.game.framework.calculators;
 
 import org.szpax.game.framework.api.Calculator;
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,10 +16,10 @@ public class Calculations {
     }
 
     public KingdomCalculation get(CalculationKey foodProduction) {
-        return (Kingdom kingdom) -> calculators.entrySet()
+        return (Realm realm) -> calculators.entrySet()
                 .stream()
                 .filter(it -> it.getKey().conforms(foodProduction))
-                .mapToDouble(it -> it.getValue().calculateChange(kingdom));
+                .mapToDouble(it -> it.getValue().calculateChange(realm));
     }
 
     public static Builder builder() {
@@ -55,6 +55,6 @@ public class Calculations {
 
     @FunctionalInterface
     public interface KingdomCalculation {
-        DoubleStream in(Kingdom kingdom);
+        DoubleStream in(Realm realm);
     }
 }

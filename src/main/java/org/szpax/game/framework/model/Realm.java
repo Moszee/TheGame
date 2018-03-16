@@ -8,7 +8,7 @@ import static org.szpax.game.framework.model.Occupation.FORAGER;
 import static org.szpax.game.framework.model.Occupation.WOODCUTTER;
 import static org.szpax.game.framework.model.Resource.BERRIES;
 
-public class Kingdom {
+public class Realm {
     private Container<Material> storage = new Container<>("materials", Material.values());
     private Container<Occupation> population = new Container<>("population", Occupation.values());
     private Container<Building> buildings = new Container<>("buildings", Building.values());
@@ -18,7 +18,7 @@ public class Kingdom {
     private final String name;
     private final World world;
 
-    public Kingdom(String name, World world) {
+    public Realm(String name, World world) {
         this.storage.add(FOOD, 10d);
 
         this.population.add(FORAGER, 10d);
@@ -32,12 +32,12 @@ public class Kingdom {
         this.world = world;
     }
 
-    private Kingdom(Container<Material> storage,
-                    Container<Occupation> population,
-                    Container<Building> buildings,
-                    Container<Resource> resources,
-                    String name,
-                    World world) {
+    private Realm(Container<Material> storage,
+                  Container<Occupation> population,
+                  Container<Building> buildings,
+                  Container<Resource> resources,
+                  String name,
+                  World world) {
         this.storage = new Container<>(storage);
         this.population = new Container<>(population);
         this.resources = new Container<>(resources);
@@ -50,8 +50,8 @@ public class Kingdom {
         return world;
     }
 
-    public Kingdom copy() {
-        return new Kingdom(
+    public Realm copy() {
+        return new Realm(
                 this.storage,
                 this.population,
                 this.buildings,

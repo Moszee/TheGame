@@ -1,7 +1,7 @@
 package org.szpax.game.framework.executors;
 
 import org.szpax.game.framework.api.EventExecutor;
-import org.szpax.game.framework.model.Kingdom;
+import org.szpax.game.framework.model.Realm;
 import org.szpax.game.framework.api.Event;
 
 public class SaturatingEventExecutor implements EventExecutor {
@@ -12,13 +12,13 @@ public class SaturatingEventExecutor implements EventExecutor {
         this.event = event;
     }
 
-    public boolean canExecuteIn(Kingdom kingdom) {
-        return event.requirements().stream().allMatch(it -> it.canTakePlaceIn(kingdom));
+    public boolean canExecuteIn(Realm realm) {
+        return event.requirements().stream().allMatch(it -> it.canTakePlaceIn(realm));
     }
 
-    public void executeIn(Kingdom kingdom) {
-        while (canExecuteIn(kingdom)) {
-            event.takesPlaceIn(kingdom);
+    public void executeIn(Realm realm) {
+        while (canExecuteIn(realm)) {
+            event.takesPlaceIn(realm);
         }
     }
 }
