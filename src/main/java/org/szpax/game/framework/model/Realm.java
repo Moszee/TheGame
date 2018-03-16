@@ -10,12 +10,15 @@ import static org.szpax.game.framework.model.Resource.BERRIES;
 
 public class Realm {
     private Container<Material> storage = new Container<>("materials", Material.values());
+
     private Container<Occupation> population = new Container<>("population", Occupation.values());
+
     private Container<Building> buildings = new Container<>("buildings", Building.values());
 
     private Container<Resource> resources = new Container<>("resources", Resource.values());
 
     private final String name;
+
     private final World world;
 
     public Realm(String name, World world) {

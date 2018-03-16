@@ -5,15 +5,30 @@ import org.szpax.game.framework.calculators.Calculations;
 import org.szpax.game.framework.events.EventChain;
 import org.szpax.game.framework.model.Realm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 public class World {
 
     private final EventChain eventChain;
     private final Calculations calculations;
 
+    private final List<Realm> realms = new ArrayList<>();
+
     public World(EventChain eventChain, Calculations calculations) {
         this.eventChain = eventChain;
         this.calculations = calculations;
+    }
+
+    public Realm spawnRealm(String name) {
+        Realm realm = new Realm(name, this);
+        realms.add(realm);
+        return realm;
+    }
+
+    public List<Realm> getRealms() {
+        return realms;
     }
 
     public Calculations calculations() {
@@ -24,9 +39,13 @@ public class World {
         return new Builder();
     }
 
-    public void executeEventsIn(Realm realm) {
-        log.debug("Executing events from event chain in Realm \"{}\"", realm.getName());
-        eventChain.play(realm);
+    public void executeEventsIn(World world) {
+        world.getRealms().forEach(
+                realm -> {
+                    log.debug("Executing events from event chain in Realm \"{}\"", realm.getName());
+                    eventChain.play(realm);
+                }
+        );
     }
 
     public static class Builder {
@@ -45,11 +64,11 @@ public class World {
         }
 
         public World create() {
-            if(calculations == null) {
+            if (calculations == null) {
                 throw new IllegalStateException();
             }
 
-            if(eventChain == null) {
+            if (eventChain == null) {
                 throw new IllegalStateException();
             }
 

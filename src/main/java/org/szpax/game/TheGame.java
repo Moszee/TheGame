@@ -38,7 +38,7 @@ public class TheGame {
 
     private void play() throws Exception {
         Scanner in = new Scanner(System.in);
-        Realm realm = new Realm("test", world);
+        Realm realm = world.spawnRealm("test");
 
         while (true) {
             System.out.println("========~~~~ TURN " + turnNumber++ + " ~~~~========");
@@ -56,7 +56,7 @@ public class TheGame {
                 command.doWork(realm);
 
                 if (command.isTerminating())
-                    world.executeEventsIn(realm);
+                    world.executeEventsIn(world);
             }
         }
     }
